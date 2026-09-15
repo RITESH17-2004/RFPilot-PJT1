@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+:root {
+  --navy-950: #04101f;
+  --navy-900: #0a1628;
+  --navy-800: #0d1f3c;
+  --navy-700: #122654;
+  --gold-400: #e8c97a;
+  --gold-500: #c8a96a;
+  --gold-600: #a88840;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --foreground: #0f172a;
+  --bg-light: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--foreground);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes float-blob {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-20px, 15px) scale(0.95);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float-blob {
+  animation: float-blob 12s ease-in-out infinite;
+}
+
+.animate-float-blob-slow {
+  animation: float-blob 18s ease-in-out infinite reverse;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-slate-200/80 shadow-sm;
+  }
+
+  /* Navy sidebar links */
+  .nav-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/10 hover:text-white transition-all duration-200 font-medium text-sm;
+  }
+
+  .nav-link-active {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl bg-white/15 text-white font-semibold text-sm border border-white/10;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-sm transition-all shadow-md shadow-indigo-200/60 active:scale-[0.97];
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 bg-[#c8a96a] hover:bg-[#b8993a] text-[#04101f] rounded-xl font-bold text-sm transition-all shadow-lg shadow-amber-200/40 active:scale-[0.97];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 border border-slate-200 hover:border-indigo-400 text-slate-700 hover:text-indigo-600 rounded-xl font-semibold text-sm transition-all;
+  }
+
+  /* Status badges */
+  .badge-green {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-100;
+  }
+
+  .badge-amber {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-100;
+  }
+
+  .badge-blue {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-100;
+  }
+
+}

@@ -1,0 +1,1 @@
+Zero-Trust Infrastructure: Implementation of EDR, XDR, CASB, and 24/7 SOC monitoring. Requirement for SOAR automation and mandatory incident reporting (within 6 hours) per RBI CSITE rules.

@@ -1,0 +1,1 @@
+Unified Mobile Banking App: Support for UPI 2.0, biometric auth (FIDO2), AI spend analyzer, P2P transfers, loan applications, multi-lingual (12 regional languages), and WCAG 2.1 accessibility compliance.

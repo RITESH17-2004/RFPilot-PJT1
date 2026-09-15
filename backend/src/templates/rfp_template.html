@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        @page {
+            size: a4 portrait;
+            margin: 3.5cm 2.5cm 3.5cm 2.5cm;
+
+            @frame header {
+                -pdf-frame-content: headerContent;
+                top: 1cm;
+                margin-left: 2.5cm;
+                margin-right: 2.5cm;
+                height: 2cm;
+            }
+
+            @frame footer {
+                -pdf-frame-content: footerContent;
+                bottom: 1cm;
+                margin-left: 2.5cm;
+                margin-right: 2.5cm;
+                height: 1.5cm;
+            }
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 10pt;
+            color: #2c3e50;
+            line-height: 1.7;
+        }
+
+        /* --- Cover Page --- */
+        .cover-page {
+            text-align: center;
+            page-break-after: always;
+        }
+
+        .bank-logo {
+            font-size: 28pt;
+            font-weight: bold;
+            color: #1a437f;
+            letter-spacing: 4px;
+            border-bottom: 2pt solid #1a437f;
+            display: inline-block;
+            padding-bottom: 10pt;
+            margin-top: 0cm;
+        }
+
+        .rfp-title {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-top: 6cm;
+            margin-bottom: 2cm;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .rfp-meta {
+            font-size: 11pt;
+            color: #2c3e50;
+            border: 0.5pt solid #dee2e6;
+            padding: 25pt;
+            background-color: #fcfcfc;
+            display: inline-block;
+            text-align: left;
+            min-width: 8cm;
+            margin-top: 2cm;
+        }
+
+        /* --- Table of Contents --- */
+        .toc-page {
+            page-break-after: always;
+        }
+
+        .toc-title {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1a437f;
+            margin-bottom: 1.5cm;
+        }
+
+        .toc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2cm;
+        }
+
+        .toc-table th {
+            background-color: #1a437f;
+            color: #ffffff;
+            padding: 12pt;
+            text-align: left;
+            font-size: 10pt;
+            text-transform: uppercase;
+        }
+
+        .toc-table td {
+            padding: 12pt;
+            border-bottom: 0.5pt solid #dee2e6;
+            font-size: 10pt;
+        }
+
+        /* --- Content Sections --- */
+        .section-page {
+            page-break-before: always;
+        }
+
+        h1 {
+            color: #1a437f;
+            font-size: 18pt;
+            border-bottom: 2pt solid #1a437f;
+            padding-bottom: 8pt;
+            margin-bottom: 25pt;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+
+        .summary-box {
+            background-color: #f8f9fa;
+            border-left: 4pt solid #1a437f;
+            padding: 15pt;
+            margin: 20pt 0 30pt 0;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .clause-container {
+            margin-bottom: 35pt;
+        }
+
+        .clause-heading {
+            font-weight: bold;
+            font-size: 12pt;
+            color: #1a437f;
+            margin-bottom: 10pt;
+        }
+
+        .clause-content {
+            text-align: justify;
+            margin-bottom: 12pt;
+        }
+
+        .sub-clause-list {
+            margin-left: 25pt;
+            margin-top: 5pt;
+            margin-bottom: 15pt;
+            padding: 0;
+        }
+
+        .sub-clause-item {
+            font-size: 10pt;
+            color: #34495e;
+            line-height: 1.5;
+            margin-bottom: 8pt;
+            list-style-type: square;
+            /* Reliable symbol */
+        }
+
+        /* --- Tables --- */
+        .table-container {
+            margin: 30pt 0;
+        }
+
+        .table-title {
+            font-weight: bold;
+            color: #1a437f;
+            margin-bottom: 12pt;
+            font-size: 11pt;
+            border-left: 3pt solid #1a437f;
+            padding-left: 8pt;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 0.5pt solid #dee2e6;
+        }
+
+        th {
+            background-color: #f4f7f9;
+            color: #1a437f;
+            padding: 10pt;
+            font-size: 9pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: left;
+            border-bottom: 1.5pt solid #1a437f;
+        }
+
+        td {
+            padding: 10pt;
+            border: 0.5pt solid #dee2e6;
+            font-size: 9.5pt;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        /* --- Regulatory Box --- */
+        .verbatim-box {
+            border: 1pt dashed #e74c3c;
+            padding: 15pt;
+            margin-top: 40pt;
+            background-color: #fff5f5;
+            font-size: 9.5pt;
+            color: #c0392b;
+            line-height: 1.6;
+        }
+
+        /* --- Stationery --- */
+        #headerContent {
+            text-align: right;
+            color: #95a5a6;
+            font-size: 8pt;
+            border-bottom: 0.5pt solid #ecf0f1;
+            padding-bottom: 5pt;
+        }
+
+        #footerContent {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 8pt;
+            border-top: 0.5pt solid #ecf0f1;
+            padding-top: 5pt;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Fixed Stationery -->
+    <div id="headerContent">
+        {{ organization | upper }} | REF: {{ rfp_id }} | ISSUED: {{ issue_date }}
+    </div>
+    <div id="footerContent">
+        RESTRICTED | {{ title | upper }} | Page <pdf:pagenumber> of <pdf:pagecount>
+    </div>
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div class="bank-logo">{{ organization | upper }}</div>
+
+        <div class="rfp-title">Request for Proposal (RFP)<br />for<br />{{ title }}</div>
+
+        <div class="rfp-meta">
+            <strong style="color: #1a437f;">RFP IDENTIFICATION:</strong> {{ rfp_id }}<br />
+            <strong style="color: #1a437f;">DATE OF ISSUANCE:</strong> {{ issue_date }}<br />
+            <strong style="color: #1a437f;">SUBMISSION DEADLINE:</strong> {{ submission_deadline }}<br />
+            <strong style="color: #1a437f;">CLASSIFICATION:</strong> OFFICIAL / RESTRICTED
+        </div>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc-page">
+        <div class="toc-title">Table of Contents</div>
+        <table class="toc-table">
+            <thead>
+                <tr>
+                    <th style="width: 20%; text-align: center;">SECTION</th>
+                    <th style="width: 80%;">SECTION TITLE</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for section in sections %}
+                <tr>
+                    <td style="text-align: center; font-weight: bold; background-color: #fcfcfc;">{{ section.section_id
+                        }}</td>
+                    <td style="font-weight: bold; color: #1a437f;">{{ section.title }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTIONS LOOP -->
+    {% for section in sections %}
+    <div class="section-page">
+        <pdf:bookmark level="1" text="SECTION {{ section.section_id }}: {{ section.title }}" />
+        <h1>SECTION {{ section.section_id }}: {{ section.title }}</h1>
+
+        {% if section.executive_summary %}
+        <div class="summary-box">
+            {{ section.executive_summary }}
+        </div>
+        {% endif %}
+
+        <!-- Clauses -->
+        {% for clause in section.clauses %}
+        <div class="clause-container">
+            <div class="clause-heading">{{ clause.id }} {{ clause.heading }}</div>
+            <div class="clause-content">{{ clause.content }}</div>
+            {% if clause.sub_clauses %}
+            <ul class="sub-clause-list">
+                {% for sub in clause.sub_clauses %}
+                <li class="sub-clause-item">{{ sub }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <!-- Tables -->
+        {% for table in section.data_tables %}
+        {% if table is mapping and (table.headers or table.rows) %}
+        <div class="table-container">
+            <div class="table-title">Table {{ section.section_id }}.{{ loop.index }}: {{ table.table_title }}</div>
+            <table>
+                <thead>
+                    <tr>
+                        {% for header in table.headers %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table.rows %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <!-- Regulatory Verbatim -->
+        {% if section.mandatory_regulatory_verbatim %}
+        <div class="verbatim-box">
+            <strong>MANDATORY REGULATORY VERBATIM:</strong><br />
+            {{ section.mandatory_regulatory_verbatim }}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</body>
+
+</html>
