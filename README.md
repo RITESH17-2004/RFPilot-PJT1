@@ -12,13 +12,13 @@
 4. [System Architecture](#architecture)
 5. [Logic Flowcharts](#flowcharts)
 6. [Milestone Handling Workflow](#workflow)
-7. [Tech Stack](#tech-stack)
-8. [Installation & Setup](#setup)
-9. [Use Cases](#use-cases)
-10. [Visual Gallery](#gallery)
-11. [Key API Endpoints](#api)
-12. [Project Structure](#structure)
-13. [Empirical Evaluation & Benchmarking](#evaluation)
+7. [Empirical Evaluation & Benchmarking](#evaluation)
+8. [Tech Stack](#tech-stack)
+9. [Installation & Setup](#setup)
+10. [Use Cases](#use-cases)
+11. [Visual Gallery](#gallery)
+12. [Key API Endpoints](#api)
+13. [Project Structure](#structure)
 
 ---
 
@@ -169,7 +169,68 @@ sequenceDiagram
 
 ---
 
-## <a id="tech-stack"></a>🛠️ 7. Tech Stack
+## <a id="evaluation"></a>📊 7. Empirical Evaluation & Benchmarking
+
+To prove architectural rigor, regulatory compliance, and mathematical correctness for academic and institutional evaluation, RFPilot includes an automated master evaluation framework. The testbed evaluates the platform across two rigorous tiers:
+
+```bash
+# Run the Master Evaluation Suite Live:
+cd backend
+python run_evaluation.py
+```
+
+---
+
+### **Suite A: Multi-Silo RAG Architecture & Vector Indexing Benchmark**
+*Evaluates the information retrieval layer across 100 cross-domain procurement queries, comparing monolithic flat vector databases against RFPilot's 5-Silo Cognitive Architecture.*
+
+#### **Evaluation Breakdown:**
+1. **Cross-Domain Contamination Rate (0.0% vs. 80.0%):**
+   In standard flat RAG, searching for technical SLA requirements frequently retrieves irrelevant legal indemnity clauses due to cosine similarity overlaps on keywords like *"breach"* or *"failure"*. Cognitive Siloing enforces strict vector space boundaries, mathematically eliminating cross-domain hallucination.
+2. **Vector Search Latency (P95 < 0.02ms):**
+   Guarantees sub-millisecond retrieval speeds across high-dimensional dense vector spaces, enabling instant response times in the vendor query portal.
+3. **Corrigendum Delta Sync Latency (0.19ms vs. 22.82ms — 120x Faster):**
+   When a bank issues an amendment, traditional RAG takes seconds to re-embed the whole document. Surgical JSON Mutation (SJM) re-indexes only the modified section chunks in under a millisecond, guaranteeing real-time freshness for subsequent vendor queries.
+4. **Top-3 Citation Precision ($P@3 = 92.3\%$ vs. 68.5%):**
+   Measures whether the top 3 retrieved clauses contain the exact factual answer. High precision ($92.3\%$) ensures the AI cites the correct clause on the first pass, saving bank SMEs from reading irrelevant search noise.
+
+<p align="center">
+  <img src="./assets/evaluation/suite-a-rag-benchmark.png" width="850px" alt="Suite A: Multi-Silo RAG & Vector Indexing Benchmark" /><br>
+  <i>Figure 13.1: Terminal output of Suite A evaluating Cognitive Siloing isolation and sub-millisecond delta sync.</i>
+</p>
+
+---
+
+### **Suite B: Full-Document PDF Ground-Truth Benchmark**
+*Extracts and evaluates our actual generated 82-page Core Banking RFP (`rfp_32.pdf`) against 364 pages of golden-source standards (333-page World Bank Standard Procurement RFP + 31-page RBI Master Direction on IT Outsourcing) using `PyMuPDF` (fitz) and `SentenceTransformers` (`paraphrase-MiniLM-L3-v2`).*
+
+#### **Evaluation Breakdown:**
+1. **Document Scope & Word Count Scale (82 Pages / 17,528 Words):**
+   Proves enterprise-scale document synthesis. Unlike generic chatbots that produce 1–2 page summaries or truncate text, RFPilot generates an exhaustive 82-page institutional contract with all 11 mandatory sections, data tables, and annexures with zero format collapse.
+2. **Section-Level Semantic Alignment (BERTScore = 87.3%):**
+   Measures the dense vector cosine similarity of matching sections (Eligibility, Technical Architecture, SLAs, EMD/PBG). An 87.3% score confirms high semantic parity with published banking procurement contracts without verbatim plagiarizing.
+3. **Regulatory Clause Grounding Rate (100.0% — 7 / 7 Covenants Verified):**
+   An RFP missing statutory rules would fail an RBI audit. Deep semantic vector matching verifies that 100% of mandatory covenants are actively present:
+   - *RBI Master Direction Reference (60.5% match)*
+   - *DPDPA Domestic Data Localization within India (45.8% match)*
+   - *CERT-In 6-Hour Cyber Incident Disclosure (66.3% match)*
+   - *Tier-1 High Availability SLA — 99.99% Uptime (34.1% match)*
+   - *Disaster Recovery — RPO $\le$ 15m, RTO $\le$ 60m (40.1% match)*
+   - *Third-Party Indemnity & Liability Protections (59.7% match)*
+   - *Performance Bank Guarantee (10%) & EMD (2%) (44.7% match)*
+4. **Gunning Fog Readability Index (14.6 — Formal Legal Density):**
+   A standard linguistic formula measuring sentence complexity and vocabulary depth. Casual chatbots output text at grade 7–8; a score of **14.6** mathematically proves the generated prose matches the formal reading grade of official contracts (World Bank reference: 12.4 – 15.6).
+5. **Cross-Section Timeline & Budget Sanity (100% Chain-of-Context Coherence):**
+   In manual 100-page RFPs, human copy-pasting from older drafts creates timeline and budget contradictions in ~4.2% of tenders. RFPilot's sequential memory ensures budgets from Section 1 dynamically propagate to Section 4 (EMD) and Section 9 (PBG) with 100% mathematical coherence.
+
+<p align="center">
+  <img src="./assets/evaluation/suite-b-pdf-scorecard.png" width="850px" alt="Suite B: Full-Document PDF Ground-Truth Benchmark" /><br>
+  <i>Figure 13.2: Terminal output of Suite B evaluating full-document extraction, 100% regulatory grounding, and legal readability.</i>
+</p>
+
+---
+
+## <a id="tech-stack"></a>🛠️ 8. Tech Stack
 
 | Layer | Technology |
 | :--- | :--- |
@@ -183,7 +244,7 @@ sequenceDiagram
 
 ---
 
-## <a id="setup"></a>⚙️ 8. Installation & Setup
+## <a id="setup"></a>⚙️ 9. Installation & Setup
 
 ### **1. Environment Setup**
 ```bash
@@ -240,7 +301,7 @@ cd ../frontend && npm install && npm run dev
 
 ---
 
-## <a id="use-cases"></a>🎯 9. Use Cases
+## <a id="use-cases"></a>🎯 10. Use Cases
 
 *   **High-Velocity Tech Procurement:** Instantly draft complex, highly-technical RFPs for Core Banking System (CBS) migrations, Cloud Security SOCs, or Mobile App upgrades without sacrificing institutional depth.
 *   **Automated Regulatory Compliance:** Automatically synthesize and inject the latest RBI IT Outsourcing mandates, data localization laws, and global World Bank bidding rules into every document generated.
@@ -249,7 +310,7 @@ cd ../frontend && npm install && npm run dev
 
 ---
 
-## <a id="gallery"></a>📸 10. Visual Gallery
+## <a id="gallery"></a>📸 11. Visual Gallery
 
 <table width="100%" style="border-collapse: collapse;">
   <!-- ROW 1 -->
@@ -334,7 +395,7 @@ cd ../frontend && npm install && npm run dev
 
 ---
 
-## <a id="api"></a>📡 11. Key API Endpoints
+## <a id="api"></a>📡 12. Key API Endpoints
 
 | Endpoint | Method | Description |
 | :--- | :--- | :--- |
@@ -345,7 +406,7 @@ cd ../frontend && npm install && npm run dev
 
 ---
 
-## <a id="structure"></a>📂 12. Project Structure
+## <a id="structure"></a>📂 13. Project Structure
 
 ### **Backend (FastAPI + AI Engine)**
 ```text
@@ -392,67 +453,6 @@ frontend/
 ├── src/components/             
 └── src/lib/                     
 ```
-
----
-
-## <a id="evaluation"></a>📊 13. Empirical Evaluation & Benchmarking
-
-To prove architectural rigor, regulatory compliance, and mathematical correctness for academic and institutional evaluation, RFPilot includes an automated master evaluation framework. The testbed evaluates the platform across two rigorous tiers:
-
-```bash
-# Run the Master Evaluation Suite Live:
-cd backend
-python run_evaluation.py
-```
-
----
-
-### **Suite A: Multi-Silo RAG Architecture & Vector Indexing Benchmark**
-*Evaluates the information retrieval layer across 100 cross-domain procurement queries, comparing monolithic flat vector databases against RFPilot's 5-Silo Cognitive Architecture.*
-
-#### **Evaluation Breakdown:**
-1. **Cross-Domain Contamination Rate (0.0% vs. 80.0%):**
-   In standard flat RAG, searching for technical SLA requirements frequently retrieves irrelevant legal indemnity clauses due to cosine similarity overlaps on keywords like *"breach"* or *"failure"*. Cognitive Siloing enforces strict vector space boundaries, mathematically eliminating cross-domain hallucination.
-2. **Vector Search Latency (P95 < 0.02ms):**
-   Guarantees sub-millisecond retrieval speeds across high-dimensional dense vector spaces, enabling instant response times in the vendor query portal.
-3. **Corrigendum Delta Sync Latency (0.19ms vs. 22.82ms — 120x Faster):**
-   When a bank issues an amendment, traditional RAG takes seconds to re-embed the whole document. Surgical JSON Mutation (SJM) re-indexes only the modified section chunks in under a millisecond, guaranteeing real-time freshness for subsequent vendor queries.
-4. **Top-3 Citation Precision ($P@3 = 92.3\%$ vs. 68.5%):**
-   Measures whether the top 3 retrieved clauses contain the exact factual answer. High precision ($92.3\%$) ensures the AI cites the correct clause on the first pass, saving bank SMEs from reading irrelevant search noise.
-
-<p align="center">
-  <img src="./assets/evaluation/suite-a-rag-benchmark.png" width="850px" alt="Suite A: Multi-Silo RAG & Vector Indexing Benchmark" /><br>
-  <i>Figure 13.1: Terminal output of Suite A evaluating Cognitive Siloing isolation and sub-millisecond delta sync.</i>
-</p>
-
----
-
-### **Suite B: Full-Document PDF Ground-Truth Benchmark**
-*Extracts and evaluates our actual generated 82-page Core Banking RFP (`rfp_32.pdf`) against 364 pages of golden-source standards (333-page World Bank Standard Procurement RFP + 31-page RBI Master Direction on IT Outsourcing) using `PyMuPDF` (fitz) and `SentenceTransformers` (`paraphrase-MiniLM-L3-v2`).*
-
-#### **Evaluation Breakdown:**
-1. **Document Scope & Word Count Scale (82 Pages / 17,528 Words):**
-   Proves enterprise-scale document synthesis. Unlike generic chatbots that produce 1–2 page summaries or truncate text, RFPilot generates an exhaustive 82-page institutional contract with all 11 mandatory sections, data tables, and annexures with zero format collapse.
-2. **Section-Level Semantic Alignment (BERTScore = 87.3%):**
-   Measures the dense vector cosine similarity of matching sections (Eligibility, Technical Architecture, SLAs, EMD/PBG). An 87.3% score confirms high semantic parity with published banking procurement contracts without verbatim plagiarizing.
-3. **Regulatory Clause Grounding Rate (100.0% — 7 / 7 Covenants Verified):**
-   An RFP missing statutory rules would fail an RBI audit. Deep semantic vector matching verifies that 100% of mandatory covenants are actively present:
-   - *RBI Master Direction Reference (60.5% match)*
-   - *DPDPA Domestic Data Localization within India (45.8% match)*
-   - *CERT-In 6-Hour Cyber Incident Disclosure (66.3% match)*
-   - *Tier-1 High Availability SLA — 99.99% Uptime (34.1% match)*
-   - *Disaster Recovery — RPO $\le$ 15m, RTO $\le$ 60m (40.1% match)*
-   - *Third-Party Indemnity & Liability Protections (59.7% match)*
-   - *Performance Bank Guarantee (10%) & EMD (2%) (44.7% match)*
-4. **Gunning Fog Readability Index (14.6 — Formal Legal Density):**
-   A standard linguistic formula measuring sentence complexity and vocabulary depth. Casual chatbots output text at grade 7–8; a score of **14.6** mathematically proves the generated prose matches the formal reading grade of official contracts (World Bank reference: 12.4 – 15.6).
-5. **Cross-Section Timeline & Budget Sanity (100% Chain-of-Context Coherence):**
-   In manual 100-page RFPs, human copy-pasting from older drafts creates timeline and budget contradictions in ~4.2% of tenders. RFPilot's sequential memory ensures budgets from Section 1 dynamically propagate to Section 4 (EMD) and Section 9 (PBG) with 100% mathematical coherence.
-
-<p align="center">
-  <img src="./assets/evaluation/suite-b-pdf-scorecard.png" width="850px" alt="Suite B: Full-Document PDF Ground-Truth Benchmark" /><br>
-  <i>Figure 13.2: Terminal output of Suite B evaluating full-document extraction, 100% regulatory grounding, and legal readability.</i>
-</p>
 
 ---
 
